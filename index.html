@@ -1,12 +1,110 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>DA-MMP</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>DA-MMP</h1>
-  <p>Project website is under construction.</p>
+  <h1>
+    DA-MMP: Learning Coordinated and Accurate Throwing with<br>
+    Dynamics-Aware Motion Manifold Primitives
+  </h1>
+  <div class="authors">
+    <a class="author" href="https://cc299792458.github.io/" target="_blank" rel="noopener">
+      Chi Chu<sup>1</sup>
+    </a>
+    <span class="sep">·</span>
+    <a class="author" href="http://hxu.rocks/" target="_blank" rel="noopener">
+      Huazhe Xu<sup>1,2,3</sup>
+    </a>
+  </div>
+
+  <div class="affiliations">
+    <sup>1</sup> Shanghai Qi Zhi Institute,
+    <sup>2</sup> Institute for Interdisciplinary Information Sciences, Tsinghua University,
+    <sup>3</sup> Shanghai AI Lab
+  </div>
+
+  <div class="links">
+    <a class="btn" href="paper.pdf" target="_blank">
+      <img class="icon" src="imgs/icons/pdf.svg" alt="PDF" />
+      <span>Paper (coming soon)</span>
+    </a>
+    <a class="btn" href="https://arxiv.org/abs/xxxx" target="_blank">
+      <img class="icon" src="imgs/icons/arxiv.svg" alt="arXiv" />
+      <span>arXiv (coming soon)</span>
+    </a>
+    <a class="btn" href="https://x.com/your_handle" target="_blank">
+      <img class="icon" src="imgs/icons/twitter-x.svg" alt="X" />
+      <span>Summary (coming soon)</span>
+    </a>
+    <a class="btn" href="https://github.com/cc299792458/da-mmp" target="_blank">
+      <img class="icon" src="imgs/icons/github.svg" alt="GitHub" />
+      <span>Code (coming soon)</span>
+    </a>
+  </div>
+
+  <!-- Responsive YouTube embed (privacy-enhanced mode) -->
+  <section class="section">
+    <div class="video-container">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/93DnXD1sHvk"
+        title="DA-MMP — Project Video"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </section>
+
+  <section class="section">
+    <!-- <img src="imgs/teaser.png" alt="DA-MMP teaser" class="teaser"> -->
+    <h2>Abstract</h2>
+    <p>
+      Dynamic manipulation is a key capability for advancing robot performance, enabling skills such as tossing. 
+      While recent learning-based approaches have pushed the field forward, most methods still rely on manually designed action parameterizations, limiting their ability to produce the highly coordinated motions required in complex tasks. 
+      Motion planning can generate feasible trajectories, but the dynamics gap—stemming from control inaccuracies, contact uncertainties, and aerodynamic effects—often causes large deviations between planned and executed trajectories. 
+      In this work, we propose Dynamics-Aware Motion Manifold Primitives (DA-MMP), a motion generation framework for goal-conditioned dynamic manipulation, and instantiate it on a challenging real-world ring-tossing task.
+      Our approach extends motion manifold primitives to variable-length trajectories through a compact parametrization and learns a high-quality manifold from a large-scale dataset of planned motions. 
+      Building on this manifold, a conditional flow matching model is trained in the latent space with a small set of real-world trials, enabling the generation of throwing trajectories that account for execution dynamics.
+      Experiments show that our method can generate coordinated and smooth motion trajectories for the ring-tossing task.
+      In real-world evaluations, it achieves high success rates and even surpasses the performance of trained human experts.
+      Moreover, it generalizes to novel targets beyond the training range, indicating that it successfully learns the underlying trajectory–dynamics mapping.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>Method</h2>
+    <p>[Content coming soon]</p>
+  </section>
+
+  <section class="section">
+    <h2>Experiments</h2>
+    <p>[Content coming soon]</p>
+  </section>
+
+  <!-- <section class="section">
+    <h2>Acknowledgment</h2>
+    <p>[Content coming soon]</p>
+  </section> -->
+
+  <section class="section-left">
+    <h2>Citations</h2>
+    <pre><code>@article{chu2025dammp,
+    title   = {DA-MMP: Learning Coordinated and Accurate Throwing with Dynamics-Aware Motion Manifold Primitives},
+    author  = {Chi Chu and Huazhe Xu},
+    journal = {arXiv preprint arXiv:coming soon},
+    year    = {2025}
+  }</code></pre>
+  </section>
+
 </body>
 </html>
