@@ -19,7 +19,7 @@ h1 {
 /* --- Authors section --- */
 .authors {
   margin-top: 16px;
-  display: inline-flex;   /* keep authors on one line and center */
+  display: inline-flex;     /* keep authors on one line and centered */
   align-items: baseline;
   gap: 10px;
   font-size: 18px;
@@ -27,49 +27,36 @@ h1 {
 }
 
 .authors .author {
-  text-decoration: none;  /* clean link look */
-  color: #3b82f6;
+  text-decoration: none;    /* clean link look */
+  color: #3b82f6;           /* link-like light blue */
   font-weight: 600;
-  font-size: clamp(20px, 2.5vw, 26px); /* bigger and responsive */
+  font-size: clamp(20px, 2.5vw, 26px);
 }
 
 .authors .author:hover {
-  text-decoration: underline; /* subtle hover feedback */
+  text-decoration: underline;
   color: #2563eb;
 }
 
 .authors .sep {
-  opacity: 0.35;          /* light dot separator */
+  opacity: 0.35;            /* subtle dot separator */
 }
 
 .authors sup {
-  font-size: 0.7em;       /* smaller superscript */
-  vertical-align: super;  /* ensure it sits higher */
+  font-size: 0.7em;
+  vertical-align: super;
   margin-left: 2px;
 }
 
 /* --- Affiliations --- */
 .affiliations {
   margin-top: 12px;
-  font-size: 18px;     /* bigger than before */
-  color: #374151;      /* gray-500 */
+  font-size: 18px;
+  color: #374151;           /* dark gray for good readability */
   line-height: 1.4;
 }
 
-.affiliations div {
-  margin: 2px 0;
-}
-
-/* --- Links row --- */
-.links {
-  margin-top: 18px;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-/* --- Links row --- */
+/* --- Link buttons row --- */
 .links {
   margin-top: 18px;
   display: flex;
@@ -81,9 +68,9 @@ h1 {
 .btn {
   display: inline-flex;
   align-items: center;
-  padding: 8px 20px;              /* slightly bigger than first version */
-  border-radius: 9999px;
-  background: #1f2937;            /* dark gray */
+  padding: 8px 20px;        /* slightly larger button */
+  border-radius: 9999px;    /* pill shape */
+  background: #1f2937;      /* dark gray (cool tone) */
   color: #ffffff;
   font-size: 16px;
   font-weight: 500;
@@ -92,7 +79,7 @@ h1 {
 }
 
 .btn:hover {
-  background: #374151;            /* lighter gray on hover */
+  background: #374151;      /* lighter gray on hover */
 }
 
 .btn .icon {
@@ -101,7 +88,7 @@ h1 {
   margin-right: 8px;
   display: inline-block;
   vertical-align: middle;
-  filter: invert(1);              /* invert black icons → white */
+  filter: invert(1);        /* make dark SVGs appear white on dark bg */
 }
 
 .btn span {
@@ -116,43 +103,43 @@ h1 {
 }
 
 .section h2 {
-  font-size: 40px;       /* bigger title */
+  font-size: 40px;
   font-weight: 800;
   margin-bottom: 24px;
   color: #0f172a;
 }
 
-/* Paragraph style for Abstract and other centered sections */
+/* Paragraphs inside centered sections (e.g., Abstract) */
 .section p {
   font-size: 18px;
   line-height: 1.65;
-  color: #334155;        /* soft dark gray for comfortable reading */
-  max-width: 1000px;     /* match video width */
-  margin: 0 auto;
-  text-align: justify;   /* academic look with justified text */
+  color: #334155;           /* soft dark gray for comfortable reading */
+  max-width: 1000px;        /* match video width */
+  margin: 0 auto;           /* center the text block */
+  text-align: justify;      /* academic look with justified text */
 }
 
-/* --- Left-aligned section (for citations) --- */
+/* --- Left-aligned section (for Citations) --- */
 .section-left {
   margin: 100px 0;
-  width: 100%;           /* span full width */
+  width: 100%;
   text-align: left;
-  padding-left: 40px;    /* small indent from the very edge */
+  padding-left: 40px;       /* gentle indent from the very edge */
 }
 
 .section-left h2 {
-  font-size: 40px;       /* same big size */
+  font-size: 40px;
   font-weight: 800;
   margin-bottom: 24px;
   color: #0f172a;
 }
 
-/* --- Citation / BibTeX style --- */
+/* Citation / BibTeX block */
 .section-left pre {
-  background: #f3f4f6;   /* light gray background */
+  background: #f3f4f6;      /* light gray background */
   padding: 16px 20px;
   border-radius: 6px;
-  overflow-x: auto;      /* horizontal scroll if too long */
+  overflow-x: auto;          /* horizontal scroll if needed */
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 15px;
   line-height: 1.5;
@@ -160,25 +147,25 @@ h1 {
 }
 
 .section-left code {
-  white-space: pre;      /* preserve formatting */
+  white-space: pre;          /* preserve formatting */
 }
 
-/* Teaser image style */
+/* --- Optional teaser image (currently not used) --- */
 .teaser {
   width: 100%;
   max-width: 1000px;
   margin: 0 auto 30px auto;  /* center + space below */
   display: block;
-  border-radius: 6px;        /* optional: slight rounded corners */
+  border-radius: 6px;
 }
 
-/* Responsive YouTube video container */
+/* --- Responsive YouTube embed --- */
 .video-container {
   position: relative;        /* create aspect-ratio box */
   width: 100%;
   max-width: 1000px;         /* limit width on large screens */
   margin: 0 auto 40px auto;  /* center + space below */
-  padding-bottom: 56.25%;    /* 16:9 aspect ratio (9/16=0.5625) */
+  padding-bottom: 56.25%;    /* 16:9 aspect ratio */
   height: 0;                 /* let iframe fill this box */
 }
 
@@ -188,7 +175,7 @@ h1 {
   width: 100%;
   height: 100%;
   border: 0;
-  border-radius: 6px;        /* optional rounded corners */
+  border-radius: 6px;        /* subtle rounded corners */
 }
 
 /* --- Mobile optimization --- */
@@ -199,7 +186,7 @@ h1 {
   }
 
   .authors {
-    font-size: 14px;      /* fallback for separators */
+    font-size: 14px;         /* affects separators only */
     gap: 8px;
     margin-top: 10px;
   }
