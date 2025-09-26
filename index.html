@@ -4,15 +4,24 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>DA-MMP</title>
-  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="icon" type="image/png" href="imgs/favicon.png">
 
   <!-- Google Fonts: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
+  <!-- Site styles -->
   <link rel="stylesheet" href="style.css" />
+
+  <!-- MathJax (render LaTeX; inline only) -->
+  <script>
+    // Only inline math \( ... \)
+    window.MathJax = { tex: { inlineMath: [['\\(', '\\)']] }, svg: { fontCache: 'global' } };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
+
 <body>
   <!-- Title -->
   <h1>
@@ -22,11 +31,11 @@
 
   <!-- Authors -->
   <div class="authors">
-    <a class="author" href="https://cc299792458.github.io/" target="_blank" rel="noopener">
+    <a class="author" href="https://cc299792458.github.io/" target="_blank" rel="noopener noreferrer">
       Chi Chu<sup>1</sup>
     </a>
     <span class="sep">·</span>
-    <a class="author" href="http://hxu.rocks/" target="_blank" rel="noopener">
+    <a class="author" href="http://hxu.rocks/" target="_blank" rel="noopener noreferrer">
       Huazhe Xu<sup>1,2,3</sup>
     </a>
   </div>
@@ -39,32 +48,31 @@
   </div>
 
   <!-- Links -->
-  <div class="links">
-    <a class="btn" href="paper.pdf" target="_blank">
-      <img class="icon" src="imgs/icons/pdf.svg" alt="PDF" />
+  <div class="links" aria-label="Project links">
+    <a class="btn" href="paper.pdf" target="_blank" rel="noopener noreferrer">
+      <img class="icon" src="imgs/icons/pdf.svg" alt="" />
       <span>Paper (coming soon)</span>
     </a>
-    <a class="btn" href="https://arxiv.org/abs/xxxx" target="_blank">
-      <img class="icon" src="imgs/icons/arxiv.svg" alt="arXiv" />
+    <a class="btn" href="https://arxiv.org/abs/xxxx" target="_blank" rel="noopener noreferrer">
+      <img class="icon" src="imgs/icons/arxiv.svg" alt="" />
       <span>arXiv (coming soon)</span>
     </a>
-    <a class="btn" href="https://x.com/your_handle" target="_blank">
-      <img class="icon" src="imgs/icons/twitter-x.svg" alt="X" />
+    <a class="btn" href="https://x.com/your_handle" target="_blank" rel="noopener noreferrer">
+      <img class="icon" src="imgs/icons/twitter-x.svg" alt="" />
       <span>Summary (coming soon)</span>
     </a>
-    <a class="btn" href="https://github.com/cc299792458/da-mmp" target="_blank">
-      <img class="icon" src="imgs/icons/github.svg" alt="GitHub" />
+    <a class="btn" href="https://github.com/cc299792458/da-mmp" target="_blank" rel="noopener noreferrer">
+      <img class="icon" src="imgs/icons/github.svg" alt="" />
       <span>Code (coming soon)</span>
     </a>
   </div>
 
   <!-- Video -->
-  <section class="section">
+  <section class="section" aria-label="Video">
     <div class="video-container">
       <iframe
         src="https://www.youtube-nocookie.com/embed/93DnXD1sHvk"
         title="DA-MMP — Project Video"
-        frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen>
       </iframe>
@@ -72,8 +80,8 @@
   </section>
 
   <!-- Abstract -->
-  <section class="section">
-    <h2>Abstract</h2>
+  <section class="section" aria-labelledby="abstract-title">
+    <h2 id="abstract-title">Abstract</h2>
     <p>
       Dynamic manipulation is a key capability for advancing robot performance, enabling skills such as tossing. 
       While recent learning-based approaches have pushed the field forward, most methods still rely on manually designed action parameterizations, limiting their ability to produce the highly coordinated motions required in complex tasks. 
@@ -88,20 +96,99 @@
   </section>
 
   <!-- Method -->
-  <section class="section">
-    <h2>Method</h2>
-    <p>[Content coming soon]</p>
+  <section class="section" id="method" aria-labelledby="method-title">
+    <h2 id="method-title">Method</h2>
+
+    <!-- Method figure -->
+    <figure class="figure">
+      <img
+        src="imgs/method_pipeline.png"
+        alt="DA-MMP method pipeline overview"
+        loading="lazy"
+        decoding="async"
+        width="1600" height="900"
+        sizes="(max-width: 1000px) 100vw, 1000px"
+        class="figure-img" />
+      <figcaption class="caption">
+        <strong>Overview of DA-MMP.</strong>
+        Stage I (blue): data collection from goal-manifold sampling, motion planning, and parameterization, yielding 90k planned trajectories.
+        Stage II (red/green): policy learning with an autoencoder to learn motion manifolds and a conditional flow-matching model for trajectory–dynamics mapping.
+      </figcaption>
+    </figure>
+
+    <!-- Method body -->
+    <div class="method-body">
+      <!-- Problem -->
+      <h3 class="subheading">Problem</h3>
+      <p class="method-text">
+        In this project, we address a real-world robotic ring-tossing task. 
+        The task is challenging due to the need for <strong>highly coordinated, high-speed motions</strong> and <strong>dynamics gaps stemming from control, contact, and aerodynamics</strong>. 
+        The goal is to produce a joint trajectory \( \tau \) that releases a grasped ring to land around a distant peg accurately.
+      </p>
+
+      <!-- Key Idea -->
+      <h3 class="subheading">Key Idea</h3>
+      <p class="method-text">
+        DA-MMP generates dynamics-aware throwing trajectories in two stages: 
+        (I) build a <strong>low-dimensional motion manifold</strong> from a large set of planned trajectories, and 
+        (II) align this manifold to <strong>real execution dynamics</strong> using a conditional flow-matching policy trained with few real trials.
+      </p>
+
+      <!-- Phase A: Data Collection -->
+      <h3 class="phase-heading">Stage I. Data Collection</h3>
+      <div class="method-grid">
+        <div class="card">
+          <h4>Goal-Manifold Sampling</h4>
+          <p>
+            We adopt goal-manifold sampling to generate candidate throwing states.
+            By leveraging projectile equations and task geometry, each candidate specifies a feasible end-effector pose and velocity at release.
+            Infeasible candidates are rejected, yielding a goal manifold.
+          </p>
+        </div>
+        <div class="card">
+          <h4>Sampling-Based Motion Planning</h4>
+          <p>
+            Given a feasible throwing state, we use a kinodynamic planner (DIMT-RRT) to generate motion trajectories.
+            Each plan is refined with shortcut smoothing and validated through collision checks and stability tests,
+            resulting in a large-scale dataset of feasible throwing trajectories.
+          </p>
+        </div>
+      </div>
+
+      <!-- Phase B: Policy Learning -->
+      <h3 class="phase-heading">Stage II. Policy Learning</h3>
+      <div class="method-grid">
+        <div class="card">
+          <h4>Variable-Length Trajectory Parameterization</h4>
+          <p>
+            To parameterize variable-length motion trajectories without distorting the release velocity,
+            we explicitly include trajectory length in the parameterization.
+            Inspired by via-point movement primitives, we use gated radial basis functions combined with a cubic Hermite spline that enforces start and end conditions
+            to parameterize trajectories in a smooth and consistent manner.
+            Each trajectory is parameterized by its length, boundary conditions, and basis weights.
+          </p>
+        </div>
+        <div class="card">
+          <h4>Learning Motion Manifold Primitives</h4>
+          <p>
+            We train an autoencoder on the full parameterized trajectories dataset to learn a high-quality, low-dimensional motion manifold.
+            On top of this latent space, a conditional flow-matching model is trained on few real-world trials to align planned trajectories with real execution dynamics,
+            using observed landing outcomes as conditioning signals.
+            This design enables dynamics-aware trajectory generation with strong data efficiency.
+          </p>
+        </div>
+      </div>
   </section>
 
   <!-- Experiments -->
-  <section class="section">
-    <h2>Experiments</h2>
+  <section class="section" aria-labelledby="experiments-title">
+    <h2 id="experiments-title">Experiments</h2>
     <p>[Content coming soon]</p>
   </section>
 
   <!-- Citations -->
-  <section class="section-left">
-    <h2>Citations</h2>
+  <section class="section-left" aria-labelledby="citations-title">
+    <h2 id="citations-title">Citations</h2>
     <pre><code>@article{chu2025dammp,
   title   = {DA-MMP: Learning Coordinated and Accurate Throwing with Dynamics-Aware Motion Manifold Primitives},
   author  = {Chi Chu and Huazhe Xu},
