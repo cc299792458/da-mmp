@@ -6,16 +6,17 @@
   <title>DA-MMP</title>
   <link rel="icon" type="image/png" href="imgs/favicon.png">
 
-  <!-- Google Fonts: Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <!-- Google Fonts: Inter (keep minimal preconnects) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
 
   <!-- Site styles -->
   <link rel="stylesheet" href="style.css" />
 
-  <!-- MathJax (render LaTeX; inline only) -->
+  <!-- MathJax: inline LaTeX rendering only -->
   <script>
+    // Only enable inline math delimiters \( \)
     window.MathJax = { tex: { inlineMath: [['\\(', '\\)']] }, svg: { fontCache: 'global' } };
   </script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
@@ -30,13 +31,9 @@
 
   <!-- Authors -->
   <div class="authors">
-    <a class="author" href="https://cc299792458.github.io/" target="_blank" rel="noopener noreferrer">
-      Chi Chu<sup>1</sup>
-    </a>
+    <a class="author" href="https://cc299792458.github.io/" target="_blank" rel="noopener noreferrer">Chi Chu<sup>1</sup></a>
     <span class="sep">·</span>
-    <a class="author" href="http://hxu.rocks/" target="_blank" rel="noopener noreferrer">
-      Huazhe Xu<sup>1,2,3</sup>
-    </a>
+    <a class="author" href="http://hxu.rocks/" target="_blank" rel="noopener noreferrer">Huazhe Xu<sup>1,2,3</sup></a>
   </div>
 
   <!-- Affiliations -->
@@ -48,20 +45,21 @@
 
   <!-- Links -->
   <div class="links" aria-label="Project links">
+    <!-- Unified button structure: icon + label -->
     <a class="btn" href="paper.pdf" target="_blank" rel="noopener noreferrer">
-      <img class="icon" src="imgs/icons/pdf.svg" alt="" />
+      <img class="icon" src="imgs/icons/pdf.svg" alt="PDF" />
       <span>Paper (coming soon)</span>
     </a>
     <a class="btn" href="https://arxiv.org/abs/xxxx" target="_blank" rel="noopener noreferrer">
-      <img class="icon" src="imgs/icons/arxiv.svg" alt="" />
+      <img class="icon" src="imgs/icons/arxiv.svg" alt="arXiv" />
       <span>arXiv (coming soon)</span>
     </a>
     <a class="btn" href="https://x.com/your_handle" target="_blank" rel="noopener noreferrer">
-      <img class="icon" src="imgs/icons/twitter-x.svg" alt="" />
+      <img class="icon" src="imgs/icons/twitter-x.svg" alt="Summary" />
       <span>Summary (coming soon)</span>
     </a>
     <a class="btn" href="https://github.com/cc299792458/da-mmp" target="_blank" rel="noopener noreferrer">
-      <img class="icon" src="imgs/icons/github.svg" alt="" />
+      <img class="icon" src="imgs/icons/github.svg" alt="GitHub" />
       <span>Code (coming soon)</span>
     </a>
   </div>
@@ -184,6 +182,155 @@
   <section class="section" aria-labelledby="experiments-title">
     <h2 id="experiments-title">Experiments</h2>
 
+    <!-- Main quantitative results -->
+    <div class="exp-body">
+      <h3 class="subheading">Main Results: Dynamics-Aware Trajectory Generation</h3>
+      <p>
+        We compare DA-MMP against planning-based baselines and human performance in simulation and real world. 
+        Success rate (SR) is defined as the fraction of trials in which the ring lands around the peg; 
+        results are averaged over three random seeds with 10 random targets each. 
+        <strong>Residual-style correction</strong> achieves very high success in simulation but <strong>fails in the real world</strong> due to uncontrolled variance. 
+        In contrast, <strong>DA-MMP</strong> attains the highest real-world success rate, even <strong>slightly outperforming trained human experts</strong>.
+      </p>
+
+      <table class="exp-table">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Simulation SR (%)</th>
+            <th>Real SR (%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Motion planning (1 attempt)</td>
+            <td>0.0</td>
+            <td>13.3</td>
+          </tr>
+          <tr>
+            <td>Motion planning (2 attempts)</td>
+            <td>0.0</td>
+            <td>23.3</td>
+          </tr>
+          <tr>
+            <td>Residual-style correction</td>
+            <td><strong>93.3</strong></td>
+            <td>6.7</td>
+          </tr>
+          <tr>
+            <td><strong>DA-MMP (Ours)</strong></td>
+            <td>53.3</td>
+            <td><strong>60.0</strong></td>
+          </tr>
+          <tr>
+            <td>Human novice</td>
+            <td>--</td>
+            <td>13.3</td>
+          </tr>
+          <tr>
+            <td>Human expert</td>
+            <td>--</td>
+            <td>56.7</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="caption center">
+        Success rate (SR) comparison in simulation and the real world.
+      </div>
+    </div>
+
+    <!-- Our Method -->
+    <div class="exp-body">
+      <h3 class="subheading">DA-MMP (Ours)</h3>
+      <p>
+        We evaluate DA-MMP across multiple target distances. The method consistently generates coordinated trajectories and achieves accurate landings. 
+        It can also <strong>generalize to targets beyond the training range</strong>. In the unseen case, the policy exhibits <strong>slower throwing motions</strong>, 
+        suggesting that it has indeed captured the underlying <strong>trajectory–dynamics mapping</strong> rather than memorizing target-specific controls.
+      </p>
+
+      <!-- Three videos in one row -->
+      <div class="exp-video-row">
+        <figure class="vid">
+          <video controls preload="metadata" playsinline>
+            <source src="videos/dammp_1_8m.mp4" type="video/mp4" />
+          </video>
+          <figcaption class="caption center">\( r = 1.8\,\mathrm{m} \)</figcaption>
+        </figure>
+
+        <figure class="vid">
+          <video controls preload="metadata" playsinline>
+            <source src="videos/dammp_1_6m.mp4" type="video/mp4" />
+          </video>
+          <figcaption class="caption center">\( r = 1.6\,\mathrm{m} \)</figcaption>
+        </figure>
+
+        <figure class="vid">
+          <video controls preload="metadata" playsinline>
+            <source src="videos/dammp_1_2m.mp4" type="video/mp4" />
+          </video>
+          <figcaption class="caption center">
+            \( r = 1.2\,\mathrm{m} \) <span style="color:#dc2626;">(unseen)</span>
+          </figcaption>
+        </figure>
+      </div>
+      
+      <h3 class="subheading">Baseline: Motion Planning</h3>
+      <p>
+        Here we show <strong>3 trials for \( r = 1.8\,\mathrm{m} \)</strong> using motion planning. 
+        Note that for the same target, <strong>different planned trajectories result in very different landing positions</strong>. 
+        This inconsistency across planned trajectories not only leads to a <strong>low success rate</strong>,  
+        but also <strong>prevents residual-correction methods from working</strong>.
+      </p>
+
+      <!-- Three baseline videos in one row -->
+      <div class="exp-video-row">
+        <figure class="vid">
+          <video controls preload="metadata" playsinline>
+            <source src="videos/baseline_trial1.mp4" type="video/mp4" />
+          </video>
+          <figcaption class="caption center">Trial&nbsp;1 (\( r = 1.8\,\mathrm{m} \))</figcaption>
+        </figure>
+
+        <figure class="vid">
+          <video controls preload="metadata" playsinline>
+            <source src="videos/baseline_trial2.mp4" type="video/mp4" />
+          </video>
+          <figcaption class="caption center">Trial&nbsp;2 (\( r = 1.8\,\mathrm{m} \))</figcaption>
+        </figure>
+
+        <figure class="vid">
+          <video controls preload="metadata" playsinline>
+            <source src="videos/baseline_trial3.mp4" type="video/mp4" />
+          </video>
+          <figcaption class="caption center">Trial&nbsp;3 (\( r = 1.8\,\mathrm{m} \))</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- Landing distribution analysis -->
+    <h3 class="subheading">Motion Planning Landing Distribution</h3>
+    <p>
+      To further understand these results, we visualize the <strong>landing distributions under motion planning</strong> 
+      in both simulation and the real world, targeting \( r = 1.8\,\mathrm{m} \).
+      In simulation, the landings show a <strong>consistent bias with small variance</strong>, mainly due to air drag with minimal control or contact errors.
+      In contrast, the real-world landings exhibit both <strong>bias and variance</strong>, arising from control inaccuracy, contact uncertainty, and perception noise.
+      This explains why residual-style correction is highly effective in simulation—where a single bias can be compensated—but fails in reality,
+      where variance cannot be corrected by simple replanning.
+      Our method, by <strong>encoding trajectories rather than only target positions</strong>, remains effective under such real-world variability.
+    </p>
+
+    <div class="exp-figure-row">
+      <div class="exp-fig">
+        <img src="imgs/landing_scatter_sim_vs_real.png"
+             alt="Motion planning landing distributions of throws in simulation and the real world at r=1.8m"
+             loading="lazy" decoding="async">
+        <figcaption class="caption center">
+          Motion planning landing distributions in simulation vs. real world at \( r = 1.8\,\mathrm{m} \).
+        </figcaption>
+      </div>
+    </div>
+
+    <!-- Ablations -->
     <div class="exp-body">
       <h3 class="subheading">Ablations</h3>
 
