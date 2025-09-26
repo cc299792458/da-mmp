@@ -16,7 +16,6 @@
 
   <!-- MathJax (render LaTeX; inline only) -->
   <script>
-    // Only inline math \( ... \)
     window.MathJax = { tex: { inlineMath: [['\\(', '\\)']] }, svg: { fontCache: 'global' } };
   </script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
@@ -134,7 +133,7 @@
         (II) align this manifold to <strong>real execution dynamics</strong> using a conditional flow-matching policy trained with few real trials.
       </p>
 
-      <!-- Phase A: Data Collection -->
+      <!-- Stage I -->
       <h3 class="phase-heading">Stage I. Data Collection</h3>
       <div class="method-grid">
         <div class="card">
@@ -155,7 +154,7 @@
         </div>
       </div>
 
-      <!-- Phase B: Policy Learning -->
+      <!-- Stage II -->
       <h3 class="phase-heading">Stage II. Policy Learning</h3>
       <div class="method-grid">
         <div class="card">
@@ -178,12 +177,69 @@
           </p>
         </div>
       </div>
+    </div>
   </section>
 
   <!-- Experiments -->
   <section class="section" aria-labelledby="experiments-title">
     <h2 id="experiments-title">Experiments</h2>
-    <p>[Content coming soon]</p>
+
+    <div class="exp-body">
+      <h3 class="subheading">Ablations</h3>
+
+      <!-- Effect of Autoencoder -->
+      <div class="ablation">
+        <div class="ablation-text">
+          <h4>Effect of the Autoencoder</h4>
+          <p>
+            To evaluate the role of the autoencoder, we compare DA-MMP against a variant
+            trained directly on raw trajectory parameterizations. The no-AE variant yields
+            irregular joint profiles rarely executable, while DA-MMP produces smooth and
+            coherent motions.
+          </p>
+        </div>
+        <div class="ablation-fig">
+          <img src="imgs/ae_ablation.png"
+               alt="Effect of the autoencoder on trajectory generation"
+               loading="lazy" decoding="async">
+          <figcaption class="caption">
+            Effect of the autoencoder on trajectory generation.
+          </figcaption>
+        </div>
+      </div>
+
+      <!-- Effect of Dataset Scale -->
+      <div class="ablation">
+        <div class="ablation-text">
+          <h4>Effect of Dataset Scale</h4>
+          <p>
+            We study the effect of dataset size by training the autoencoder with 0.9k, 9k,
+            and 90k planned trajectories. Larger datasets consistently reduce reconstruction
+            error, confirming the need for large-scale planning data to capture diverse
+            feasible motions.
+          </p>
+        </div>
+        <div class="ablation-fig">
+          <table class="exp-table">
+            <thead>
+              <tr>
+                <th>Dataset size</th>
+                <th>Parameter-Space RMSE</th>
+                <th>LRE (%)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>0.9k</td><td>0.700</td><td>22.6</td></tr>
+              <tr><td>9k</td><td>0.005</td><td>1.3</td></tr>
+              <tr><td>90k</td><td><strong>0.001</strong></td><td><strong>0.7</strong></td></tr>
+            </tbody>
+          </table>
+          <figcaption class="caption">
+            Effect of dataset scale on autoencoder reconstruction.
+          </figcaption>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- Citations -->
