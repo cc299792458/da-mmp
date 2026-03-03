@@ -72,10 +72,10 @@
       <img class="icon" src="imgs/icons/twitter-x.svg" alt="Summary" />
       <span>Summary (coming soon)</span>
     </a>
-    <a class="btn" href="https://github.com/cc299792458/da-mmp" target="_blank" rel="noopener noreferrer">
+    <!-- <a class="btn" href="https://github.com/cc299792458/da-mmp" target="_blank" rel="noopener noreferrer">
       <img class="icon" src="imgs/icons/github.svg" alt="GitHub" />
       <span>Code (coming soon)</span>
-    </a>
+    </a> -->
   </div>
 
   <!-- Video -->
@@ -347,7 +347,7 @@
     <!-- Ablations -->
     <div class="exp-body">
       <h3 class="subheading">Ablations</h3>
-
+      
       <!-- Effect of Autoencoder -->
       <div class="ablation">
         <div class="ablation-text">
@@ -363,7 +363,7 @@
           <img src="imgs/ae_ablation.png"
                alt="Effect of the autoencoder on trajectory generation"
                loading="lazy" decoding="async">
-          <figcaption class="caption">
+          <figcaption class="caption center">
             Effect of the autoencoder on trajectory generation.
           </figcaption>
         </div>
@@ -374,10 +374,11 @@
         <div class="ablation-text">
           <h4>Effect of Dataset Scale</h4>
           <p>
-            We study the effect of dataset size by training the autoencoder with 0.9k, 9k,
-            and 90k planned trajectories. Larger datasets consistently reduce reconstruction
-            error, confirming the need for large-scale planning data to capture diverse
-            feasible motions.
+            We study the effect of dataset size by training the autoencoder with 0.09k, 0.9k, 9k,
+            and 90k planned trajectories. Larger datasets consistently reduce both the parameter-space 
+            reconstruction error and the Relative Length Reconstruction Error (LRE)—which measures 
+            the accuracy of the reconstructed execution duration—confirming the need for large-scale 
+            planning data to capture diverse feasible motions.
           </p>
         </div>
         <div class="ablation-fig">
@@ -390,16 +391,64 @@
               </tr>
             </thead>
             <tbody>
-              <tr><td>0.9k</td><td>0.700</td><td>22.6</td></tr>
-              <tr><td>9k</td><td>0.005</td><td>1.3</td></tr>
-              <tr><td>90k</td><td><strong>0.001</strong></td><td><strong>0.7</strong></td></tr>
+              <tr><td>0.09k</td><td>0.201</td><td>12.4</td></tr>
+              <tr><td>0.9k</td><td>0.007</td><td>1.9</td></tr>
+              <tr><td>9k</td><td>0.007</td><td>1.1</td></tr>
+              <tr><td>90k</td><td><strong>0.001</strong></td><td><strong>0.9</strong></td></tr>
             </tbody>
           </table>
-          <figcaption class="caption">
+          <figcaption class="caption center" style="margin-top: 8px;">
             Effect of dataset scale on autoencoder reconstruction.
           </figcaption>
         </div>
       </div>
+
+      <!-- Effect of Radial Basis Functions -->
+      <div class="ablation">
+        <div class="ablation-text">
+          <h4>Effect of Radial Basis Functions</h4>
+          <p>
+            To evaluate the utility of radial basis functions, we compare our parameterization 
+            against a linear interpolation baseline using uniform waypoints. Our formulation yields 
+            significantly lower Mean Squared Second Derivative (MSSD) across all dataset scales, 
+            demonstrating that its inherent continuity acts as a strong structural prior to 
+            guarantee geometric smoothness suitable for high-speed dynamic tasks.
+          </p>
+        </div>
+        <div class="ablation-fig">
+          <table class="exp-table">
+            <thead>
+              <tr>
+                <th rowspan="2" style="vertical-align: middle; border-bottom: 2px solid #ddd;">Parameterization</th>
+                <th colspan="3" style="border-bottom: 1px solid #ddd;">MSSD vs. Dataset Size</th>
+              </tr>
+              <tr>
+                <th>0.9k</th>
+                <th>9k</th>
+                <th>90k</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Waypoints</td>
+                <td>596.4</td>
+                <td>558.9</td>
+                <td>555.9</td>
+              </tr>
+              <tr>
+                <td><strong>DA-MMP (Ours)</strong></td>
+                <td><strong>280.7</strong></td>
+                <td><strong>282.4</strong></td>
+                <td><strong>296.3</strong></td>
+              </tr>
+            </tbody>
+          </table>
+          <figcaption class="caption center" style="margin-top: 8px;">
+            Effect of parameterization and dataset scale on geometric smoothness (MSSD).
+          </figcaption>
+        </div>
+      </div>
+
     </div>
   </section>
 
